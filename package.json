@@ -10,7 +10,10 @@
     "start:frontend": "npm run start --workspace=apps/frontend",
     "build:backend": "npm run build --workspace=apps/backend",
     "build:frontend": "npm run build --workspace=apps/frontend",
-    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\" --prefix-colors \"blue.bold,green.bold\" --names \"backend,frontend\""
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\" --prefix-colors \"blue.bold,green.bold\" --names \"backend,frontend\"",
+    "test:backend": "npm run test --workspace=apps/backend",
+    "test:frontend": "npm run test --workspace=apps/frontend",
+    "test": "concurrently \"npm run test:backend\" \"npm run test:frontend\" --prefix-colors \"blue.bold,green.bold\" --names \"backend,frontend\""
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
