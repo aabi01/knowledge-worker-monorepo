@@ -1,0 +1,112 @@
+<div class="dialog-container">
+  <h2>Add Query</h2>
+
+  <form [formGroup]="queryForm" (ngSubmit)="onSubmit()">
+    <div class="form-field">
+      <mat-form-field appearance="outline">
+        <mat-label>Query Name</mat-label>
+        <input
+          matInput
+          formControlName="queryName"
+          placeholder="Enter Query Name"
+        />
+        <mat-error
+          *ngIf="
+            queryForm.get('queryName')?.invalid &&
+            queryForm.get('queryName')?.touched
+          "
+        >
+          Query name is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-field">
+      <mat-form-field appearance="outline">
+        <mat-label>Update Interval</mat-label>
+        <mat-select formControlName="selectedInterval">
+          <mat-option value="" disabled>Choose Interval</mat-option>
+          <mat-option
+            *ngFor="let interval of queryIntervals"
+            [value]="interval.value"
+          >
+            {{ interval.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-field">
+      <mat-form-field appearance="outline">
+        <mat-label>API</mat-label>
+        <mat-select
+          formControlName="selectedApi"
+          (selectionChange)="onApiSelect($event.value)"
+        >
+          <mat-option value="" disabled>Choose API</mat-option>
+          <mat-option *ngFor="let api of apis$ | async" [value]="api">
+            {{ api.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <ng-container *ngIf="selectedApi">
+      <div class="parameters-section" formGroupName="parameters">
+        <h3>Parameters</h3>
+        <div class="parameter-item" *ngFor="let param of selectedApi.parameters">
+          <div class="parameter-label">
+            {{ param.name }}
+            <span class="required-marker" *ngIf="param.required">*</span>
+          </div>
+          <div class="parameter-field">
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                [formControlName]="param.name"
+                [placeholder]="'Enter ' + param.name"
+                [type]="param.type === 'number' ? 'number' : 'text'"
+              />
+              <mat-error *ngIf="queryForm.get('parameters')?.get(param.name)?.invalid && queryForm.get('parameters')?.get(param.name)?.touched">
+                {{ param.name }} is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Response Attributes</mat-label>
+          <mat-select formControlName="selectedAttributes" multiple>
+            <mat-option
+              *ngFor="let attr of selectedApi.availableAttributes"
+              [value]="attr"
+            >
+              {{ attr }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </ng-container>
+
+    <div class="dialog-actions">
+      <button
+        mat-stroked-button
+        color="warn"
+        type="button"
+        (click)="onCancel()"
+      >
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        type="submit"
+        [disabled]="!queryForm.valid"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</div>

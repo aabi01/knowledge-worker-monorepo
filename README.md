@@ -19,12 +19,19 @@ This monorepo contains both the frontend and backend applications.
 npm install
 ```
 
-2. Start the backend:
+2. Start both applications:
+```bash
+npm start
+```
+
+Alternatively, you can start the applications individually:
+
+- Start only the backend:
 ```bash
 npm run start:backend
 ```
 
-3. Start the frontend:
+- Start only the frontend:
 ```bash
 npm run start:frontend
 ```
