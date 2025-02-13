@@ -31,7 +31,7 @@ export class QueryService {
           throw new Error(`Query with id ${id} not found`);
         }
         return query;
-      })
+      }),
     );
   }
 
