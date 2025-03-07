@@ -1,0 +1,8 @@
+#!/bin/sh
+# .husky/pre-commit
+
+# Validate .env files are in sync
+cd apps/backend && npm run validate:env
+
+# Exit with the status of the validate:env command
+exit $?
