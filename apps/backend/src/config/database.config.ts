@@ -5,6 +5,12 @@ import { Book } from '../api/books/entities/book.entity';
 import { Movie } from '../api/movies/entities/movie.entity';
 import { Query } from '../api/queries/entities/query.entity';
 import { QueryParameter } from '../api/queries/entities/query-parameter.entity';
+import { config } from 'dotenv';
+import * as path from 'path';
+
+// Load environment variables from .env file
+const envFile = path.resolve(process.cwd(), '.env');
+config({ path: envFile });
 
 export const databaseConfig: TypeOrmModuleOptions = {
   type: 'postgres',

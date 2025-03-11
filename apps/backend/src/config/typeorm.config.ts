@@ -1,8 +1,12 @@
 import { DataSource } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
+import * as path from 'path';
 
-config();
+// Load environment variables from .env file
+const envFile = path.resolve(process.cwd(), '.env');
+config({ path: envFile });
+
 const configService = new ConfigService();
 
 // Validate required environment variables
